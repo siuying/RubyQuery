@@ -35,7 +35,12 @@ module RubyQuery
       :next_sibling => {:type => 'traverse'},
       :previous_sibling => {:type => 'traverse'},
       :at => {:type => 'traverse', :arity => 1},
-      
+
+      :search => {:type => 'proc',
+        :proc => Proc.new {|context, param, query| 
+          context.css(param) 
+        }
+      },
       :attr => {:type => 'proc', 
         :arity => 1, 
         :proc => Proc.new {|context, param, query| 
@@ -58,21 +63,32 @@ module RubyQuery
     
     ALIAS = {
       :html => :to_html,
-      :len => :length,
+      :len => :size,
+      :length => :size,
       :count => :size,
       :get => :at,
       :"has-class" => :hasClass,
-      :val => :value
+      :val => :value,
+      :next => :next_sibling,
+      :previous => :previous_sibling
     }
 
     def self.query(html, *query)
-      doc = Nokogiri::HTML(html)
-      ctx = doc.search(query.shift)
+      ctx = Nokogiri::HTML(html)
 
       while method = query.shift
-        command = COMMANDS[method.to_sym] || COMMANDS[ALIAS[method.to_sym]] || COMMANDS[:to_html]
-        param = query.length > 0 ? (command[:arity] ? query.shift : nil) : nil
-        ctx = handle_command(ctx, ALIAS[method.to_sym] || method.to_sym, command[:type], param, query)
+        if COMMANDS.keys.include?(method.to_sym) || ALIAS.keys.include?(method.to_sym)
+          command = COMMANDS[method.to_sym] || COMMANDS[ALIAS[method.to_sym]]
+          param = query.length > 0 ? (command[:arity] ? query.shift : nil) : nil
+          ctx = handle_command(ctx, ALIAS[method.to_sym] || method.to_sym, command[:type], param, query)
+
+        elsif
+          command = COMMANDS[:search]
+          ctx = handle_command(ctx, :search, command[:type], method, query)
+
+        end
+        
+        ctx
       end
 
       if ctx.is_a?(Nokogiri::XML::Element) || ctx.is_a?(Nokogiri::XML::NodeSet)
@@ -116,7 +132,7 @@ module RubyQuery
           end
           context[param.to_i]
         else
-          if context.is_a?(Nokogiri::XML::Element) || context.is_a?(Nokogiri::XML::NodeSet)
+          if context.is_a?(Nokogiri::XML::Element) || context.is_a?(Nokogiri::XML::NodeSet) || context.is_a?(Nokogiri::HTML::Document)
             if param
               context.send(name, param)
             else

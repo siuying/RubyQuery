@@ -44,11 +44,13 @@ describe RubyQuery do
 
   it "get second li's text" do
     RubyQuery::Query.query(HTML_LIST, "ul li", "get", "1", "text").should == "Orange"
+    RubyQuery::Query.query(HTML_LIST, "ul", "li", "get", "1", "text").should == "Orange"
     RubyQuery::Query.query(HTML_LIST, "ul li", "get", "10", "text").should be_nil
   end
 
   it "get third li's text using next" do
     RubyQuery::Query.query(HTML_LIST, "ul li", "get", "1", "next", "text").should == "Cat"
+    RubyQuery::Query.query(HTML_LIST, "ul", "li", "get", "1", "next", "text").should == "Cat"
   end
 
   it "get length" do
@@ -62,4 +64,8 @@ describe RubyQuery do
     RubyQuery::Query.query(HTML_LIST, "li", "html").should == "<li>Apple</li>\n<li>Orange</li>\n<li>Cat</li>"
   end
 
+  it "should return empty for strange query" do
+    RubyQuery::Query.query(HTML_LIST, "liaa").should be_empty
+    RubyQuery::Query.query(HTML_LIST, "lixaa", "len").should 0
+  end
 end

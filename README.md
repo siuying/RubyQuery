@@ -60,12 +60,12 @@
   
   Get second li's text:
   
-    $ echo '<ul><li>Apple</li><li>Orange</li><li>Cat</li></ul>' | rquery 'ul li' get 1 text
+    $ echo '<ul><li>Apple</li><li>Orange</li><li>Cat</li></ul>' | rquery ul li get 1 text
     Orange
   
   Get third li's text using `next`:
   
-    $ echo '<ul><li>Apple</li><li>Orange</li><li>Cat</li></ul>' | rquery 'ul li' get 1 next text
+    $ echo '<ul><li>Apple</li><li>Orange</li><li>Cat</li></ul>' | rquery ul li get 1 next text
     Cat
 
   Get length:
