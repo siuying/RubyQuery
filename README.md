@@ -86,6 +86,5 @@
 
 ## Copyright
 
-Copyright (c) 2011 Francis Chong. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Francis Chong <francis at ignition dot hk>. See LICENSE.txt for further details.
 
