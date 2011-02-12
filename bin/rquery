@@ -1,0 +1,5 @@
+require 'rquery'
+
+html = STDIN.read
+puts RQuery::Query.query(html, *ARGV)
+
