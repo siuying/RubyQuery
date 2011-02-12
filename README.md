@@ -1,4 +1,4 @@
-# RQuery
+# Ruby-Query
 
  jQuery for command line and ruby. It make extract simple data fun and easy. 
 
@@ -6,7 +6,7 @@
 
 ## Installation
 
-    $ gem install rquery
+    $ gem install ruby-query
 
 
 ## Ruby Examples
@@ -14,14 +14,14 @@
   Extract an attribute from a webpage:
 
 	  require 'open-uri'
-	  require 'rquery'
+	  require 'ruby-query'
 
 	  RQuery::Query.query(open("http://twitter.com"), "a#logo img", "attr", "alt")
 	  => "Twitter"
 
   Extract a form input value :
 
-	  require 'rquery'
+	  require 'ruby-query'
 
 	  RQuery::Query.query('<input type="text" value="tj@vision-media.ca"/>', "input", "val")
 	  => "tj@vision-media.ca"

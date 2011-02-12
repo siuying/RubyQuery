@@ -1,5 +1,5 @@
-require 'rquery'
+require 'ruby_query'
 
 html = STDIN.read
-puts RQuery::Query.query(html, *ARGV)
+puts RubyQuery::Query.query(html, *ARGV)
 

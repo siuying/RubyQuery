@@ -12,8 +12,9 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "rquery"
+  gem.name = "ruby-query"
   gem.files = ["lib/*.rb", "lib/**/*.rb", "bin/*"]
+  gem.autorequire = 'ruby-query'
   gem.executables = ['rquery']
   gem.homepage = "http://github.com/siuying/rquery"
   gem.license = "MIT"

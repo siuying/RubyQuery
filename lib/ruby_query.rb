@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-module RQuery
+module RubyQuery
   class QueryError < StandardError
     attr_accessor :context, :command_name, :command_type, :param, :message
     def initialize(context, name, type, param, msg)
