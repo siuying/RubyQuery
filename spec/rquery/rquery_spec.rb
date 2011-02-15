@@ -23,8 +23,7 @@ describe RubyQuery do
   end  
 
   it "check if a class is present" do
-    logo = RubyQuery::Query.query(HTML_SIMPLE, "a")
-    RubyQuery::Query.query(logo.to_s, "img", "attr", "alt").should be_true
+    RubyQuery::Query.query(HTML_SIMPLE, "ul", "has-class", "list").should be_true
   end
   
   it "grab width or height attributes" do
@@ -66,6 +65,6 @@ describe RubyQuery do
 
   it "should return empty for strange query" do
     RubyQuery::Query.query(HTML_LIST, "liaa").should be_empty
-    RubyQuery::Query.query(HTML_LIST, "lixaa", "len").should 0
+    RubyQuery::Query.query(HTML_LIST, "lixaa", "len").should == 0
   end
 end
